@@ -1,0 +1,30 @@
+name: GottaGras-UHC
+main: fun.gottagras.uhc.Main
+version: 1.0
+commands:
+  new:
+    permission: host.use
+    description: Create new game
+    aliases: create
+  start:
+    permission: host.use
+    description: Start game
+  info:
+    permission: host.use
+    description: Test game
+  uhc:
+    permission: player.use
+    description: UHC Config
+  revive:
+    permission: host.use
+    description: Revive player
+  force:
+    permission: host.use
+    description: Force UHC Settings
+permissions:
+  player.use:
+    description: Players permisssions
+    default: true
+  host.use:
+    description: Host permissions
+    default: op
