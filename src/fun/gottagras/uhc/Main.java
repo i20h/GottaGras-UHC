@@ -2,6 +2,7 @@ package fun.gottagras.uhc;
 
 import fun.gottagras.uhc.commands.*;
 import fun.gottagras.uhc.listeners.*;
+import fun.gottagras.uhc.menu.limitStuffMenu;
 import fun.gottagras.uhc.menu.uhcMenu;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -26,6 +27,8 @@ public class Main extends JavaPlugin
         INSTANCE = this;
 
         // LISTERNERS
+        getServer().getPluginManager().registerEvents(new limitStuffMenu(this), this);
+        getServer().getPluginManager().registerEvents(new limitStuffListener(this), this);
         getServer().getPluginManager().registerEvents(new goneFishing(this), this);
         getServer().getPluginManager().registerEvents(new hasteyBoy(this), this);
         getServer().getPluginManager().registerEvents(new uhcMenu(this), this);
@@ -43,6 +46,7 @@ public class Main extends JavaPlugin
         getCommand("uhc").setExecutor(new uhcCommand(this));
         getCommand("revive").setExecutor(new reviveCommand(this));
         getCommand("force").setExecutor(new forceCommand(this));
+        getCommand("limit").setExecutor(new limitCommand(this));
 
         // SCOREBOARD
         Bukkit.getScheduler().runTaskTimer(this, new scoreBoard(this),0,20);
@@ -69,6 +73,7 @@ public class Main extends JavaPlugin
     public boolean uhc_cutclean = true;
     public boolean uhc_alltreedrop = true;
     public boolean uhc_hasteyboy = true;
+    public boolean uhc_stuffLimit = true;
 
     // UHC TIME
     public int uhc_invincible = 30;
@@ -82,6 +87,25 @@ public class Main extends JavaPlugin
     public int uhc_real_player_number = 0;
     public Player[] uhc_real_player_list = new Player[1024];
     public int uhc_join_tracker = 0;
+
+    // LIMIT DE STUFF
+    public int uhc_stuffLimit_diamondArmor = 2;
+    public int uhc_stuffLimit_diamondProtection = 2;
+
+    public int uhc_stuffLimit_ironArmor = 4;
+    public int uhc_stuffLimit_ironProtection = 3;
+
+    public int uhc_stuffLimit_sharpness = 3;
+    public boolean uhc_stuffLimit_fireAspect = false;
+    public int uhc_stuffLimit_power = 3;
+    public boolean uhc_stuffLimit_flame = false;
+
+    public boolean uhc_stuffLimit_potion = true;
+    public boolean uhc_stuffLimit_potionStrength = false;
+    public boolean uhc_stuffLimit_potionPoison = false;
+    public int uhc_stuffLimit_potionLevel = 1;
+
+    public boolean uhc_stuffLimit_notchApple = false;
 
     // METHODS
     public void plateForm()

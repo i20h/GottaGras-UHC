@@ -41,6 +41,9 @@ public class uhcMenu implements Listener
                         String cutCleanName = cutClean().getItemMeta().getDisplayName();
                         String allTreeDropName = allTreeDrop().getItemMeta().getDisplayName();
                         String hasteyBoyName = hasteyBoy().getItemMeta().getDisplayName();
+                        String stuffLimitName = stuffLimit().getItemMeta().getDisplayName();
+
+                        if (itemName == null) return;
 
                         // CHANGES
                         if (itemName.equals(formatName))
@@ -49,13 +52,28 @@ public class uhcMenu implements Listener
                                 case "classico":
                                     // FORMAT
                                     main.uhc_format = "meetup";
+                                    // TIME
+                                    main.uhc_invincible = 30;
+                                    main.uhc_pvp = 60;
+                                    main.uhc_border = 300;
+                                    main.uhc_meetup = 600;
                                     break;
                                 case "meetup":
                                     main.uhc_format = "gonefishing";
+                                    // TIME
+                                    main.uhc_invincible = 30;
+                                    main.uhc_pvp = 1200;
+                                    main.uhc_border = 1260;
+                                    main.uhc_meetup = 1860;
                                     break;
                                 case "gonefishing":
                                     // FORMAT
                                     main.uhc_format = "classico";
+                                    // TIME
+                                    main.uhc_invincible = 30;
+                                    main.uhc_pvp = 1200;
+                                    main.uhc_border = 3600;
+                                    main.uhc_meetup = 4500;
                                     break;
                             }
                         }
@@ -71,6 +89,10 @@ public class uhcMenu implements Listener
                         {
                             main.uhc_hasteyboy = !main.uhc_hasteyboy;
                         }
+                        else if (itemName.equals(stuffLimitName))
+                        {
+                            main.uhc_stuffLimit = !main.uhc_stuffLimit;
+                        }
                     }
                 }
             }
@@ -85,6 +107,7 @@ public class uhcMenu implements Listener
         inventory.setItem(10, cutClean());
         inventory.setItem(11, allTreeDrop());
         inventory.setItem(12, hasteyBoy());
+        inventory.setItem(13, stuffLimit());
         return inventory;
     }
 
@@ -120,6 +143,15 @@ public class uhcMenu implements Listener
         ItemStack itemStack = new ItemStack(Material.DIAMOND_PICKAXE);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName("§7HasteyBoy: §6" + main.uhc_hasteyboy);
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
+    public ItemStack stuffLimit()
+    {
+        ItemStack itemStack = new ItemStack(Material.ANVIL);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName("§7Limite de Stuff: §6" + main.uhc_stuffLimit);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }

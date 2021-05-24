@@ -28,22 +28,35 @@ public class scoreBoard extends BukkitRunnable implements Runnable {
         Score info_1 = objective.getScore("§6Joueurs en vie: §7"+ main.uhc_real_player_number);
         info_1.setScore(1);
 
-        // TIME PLAYED
-        Score info_2 = objective.getScore("§6Temps de jeu: §7" + main.uhc_time/60 + "min " + main.uhc_time%60 + "s");
+        // PVP
+        Score info_2;
+        if (main.uhc_state.equals("waiting") || main.uhc_state.equals("start") || main.uhc_state.equals("pve")) info_2 = objective.getScore("§6PvP dans: §7"+ (main.uhc_pvp-main.uhc_time)/60 + "min " + (main.uhc_pvp-main.uhc_time)%60 + "s");
+        else info_2 = objective.getScore("§6PvP: §7Actif");
         info_2.setScore(2);
+
+        // BORDER
+        Score info_3;
+        if (main.uhc_state.equals("meetup")) info_3 = objective.getScore("§4Tapez§3-§5vous §9!!!!");
+        else if (main.uhc_state.equals("border"))info_3 = objective.getScore("§6Fin border dans: §7"+ (main.uhc_meetup-main.uhc_time)/60 + "min " + (main.uhc_meetup-main.uhc_time)%60 + "s");
+        else info_3 = objective.getScore("§6Border dans: §7"+ (main.uhc_border-main.uhc_time)/60 + "min " + (main.uhc_border-main.uhc_time)%60 + "s"); info_3.setScore(3);
+        info_3.setScore(3);
+
+        // TIME PLAYED
+        Score info_4 = objective.getScore("§6Temps de jeu: §7" + main.uhc_time/60 + "min " + main.uhc_time%60 + "s");
+        info_4.setScore(4);
 
         // BORDER SIZE
         if (main.uhc_created)
         {
             double size = Bukkit.getWorld("uhc").getWorldBorder().getSize()/2;
             DecimalFormat numberFormat = new DecimalFormat("#.00");
-            Score info_3 = objective.getScore("§6Border: §7"+ numberFormat.format(size));
-            info_3.setScore(3);
+            Score info_5 = objective.getScore("§6Border: §7"+ numberFormat.format(size));
+            info_5.setScore(5);
         }
 
         // FORMAT
-        Score info_4 = objective.getScore("§6Mode de jeu: §7"+ main.uhc_format);
-        info_4.setScore(4);
+        Score info_6 = objective.getScore("§6Mode de jeu: §7"+ main.uhc_format);
+        info_6.setScore(6);
 
         // SET SCOREBOARD
         for (Player player:Bukkit.getOnlinePlayers())

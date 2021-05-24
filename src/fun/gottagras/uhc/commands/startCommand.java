@@ -182,11 +182,6 @@ public class startCommand implements CommandExecutor {
                 worldTheEndBorder.setDamageBuffer(1);
                 worldTheEndBorder.setWarningDistance(1);
                 worldTheEndBorder.setWarningTime(1);
-                // TIME
-                main.uhc_invincible = 30;
-                main.uhc_pvp = 60;
-                main.uhc_border = 300;
-                main.uhc_meetup = 600;
                 break;
 
             case "gonefishing":
@@ -210,11 +205,6 @@ public class startCommand implements CommandExecutor {
                 worldTheEndBorder.setDamageBuffer(1);
                 worldTheEndBorder.setWarningDistance(1);
                 worldTheEndBorder.setWarningTime(1);
-                // TIME
-                main.uhc_invincible = 30;
-                main.uhc_pvp = 1200;
-                main.uhc_border = 1260;
-                main.uhc_meetup = 1860;
                 break;
 
             default:
@@ -238,11 +228,6 @@ public class startCommand implements CommandExecutor {
                 worldTheEndBorder.setDamageBuffer(1);
                 worldTheEndBorder.setWarningDistance(1);
                 worldTheEndBorder.setWarningTime(1);
-                // TIME
-                main.uhc_invincible = 30;
-                main.uhc_pvp = 1200;
-                main.uhc_border = 3600;
-                main.uhc_meetup = 4500;
                 break;
         }
 

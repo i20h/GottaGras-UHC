@@ -21,6 +21,9 @@ commands:
   force:
     permission: host.use
     description: Force UHC Settings
+  limit:
+    permission: player.use
+    description: UHC StuffLimit Config
 permissions:
   player.use:
     description: Players permisssions
