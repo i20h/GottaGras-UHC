@@ -23,7 +23,7 @@ public class goneFishing implements Listener
     @EventHandler
     public void onInteract(PlayerInteractEvent event)
     {
-        if (main.uhc_format.equals("gonefishing"))
+        if (main.uhc_format.equals("gonefishing") || main.uhc_skyhigh)
         {
             Material material = event.getMaterial();
             Player player = event.getPlayer();
@@ -36,16 +36,19 @@ public class goneFishing implements Listener
 
     public void skyHigh()
     {
-        if (main.uhc_state.equals("pvp") && main.uhc_time%60 == 0)
+        if (main.uhc_state.equals("pvp") || main.uhc_state.equals("border") || main.uhc_state.equals("meetup"))
         {
-            for (Player player:main.uhc_real_player_list)
+            if (main.uhc_time%60 == 0)
             {
-                if (player != null)
+                for (Player player:main.uhc_real_player_list)
                 {
-                    if (player.getLocation().getY() < 200)
+                    if (player != null)
                     {
-                        player.setHealth(player.getHealth()-4);
-                        player.sendMessage("§6Vous devez être au dessus de la couche 200 pour ne plus prendre de dégats");
+                        if (player.getLocation().getY() < 200)
+                        {
+                            player.setHealth(player.getHealth()-4);
+                            player.sendMessage("§6Vous devez être au dessus de la couche 200 pour ne plus prendre de dégats");
+                        }
                     }
                 }
             }

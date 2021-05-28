@@ -42,6 +42,9 @@ public class uhcMenu implements Listener
                         String allTreeDropName = allTreeDrop().getItemMeta().getDisplayName();
                         String hasteyBoyName = hasteyBoy().getItemMeta().getDisplayName();
                         String stuffLimitName = stuffLimit().getItemMeta().getDisplayName();
+                        String superHeroesName = superHeroes().getItemMeta().getDisplayName();
+                        String noFallName = noFall().getItemMeta().getDisplayName();
+                        String skyHighName = skyHigh().getItemMeta().getDisplayName();
 
                         if (itemName == null) return;
 
@@ -65,6 +68,8 @@ public class uhcMenu implements Listener
                                     main.uhc_pvp = 1200;
                                     main.uhc_border = 1260;
                                     main.uhc_meetup = 1860;
+                                    // SCENARIO
+                                    main.uhc_stuffLimit = false;
                                     break;
                                 case "gonefishing":
                                     // FORMAT
@@ -74,6 +79,8 @@ public class uhcMenu implements Listener
                                     main.uhc_pvp = 1200;
                                     main.uhc_border = 3600;
                                     main.uhc_meetup = 4500;
+                                    // SCENARIO
+                                    main.uhc_stuffLimit = true;
                                     break;
                             }
                         }
@@ -93,6 +100,18 @@ public class uhcMenu implements Listener
                         {
                             main.uhc_stuffLimit = !main.uhc_stuffLimit;
                         }
+                        else if (itemName.equals(superHeroesName))
+                        {
+                            main.uhc_superHeroes = !main.uhc_superHeroes;
+                        }
+                        else if (itemName.equals(noFallName))
+                        {
+                            main.uhc_nofall = !main.uhc_nofall;
+                        }
+                        else if (itemName.equals(skyHighName))
+                        {
+                            main.uhc_skyhigh = !main.uhc_skyhigh;
+                        }
                     }
                 }
             }
@@ -108,6 +127,9 @@ public class uhcMenu implements Listener
         inventory.setItem(11, allTreeDrop());
         inventory.setItem(12, hasteyBoy());
         inventory.setItem(13, stuffLimit());
+        inventory.setItem(14, superHeroes());
+        inventory.setItem(15, noFall());
+        inventory.setItem(16, skyHigh());
         return inventory;
     }
 
@@ -152,6 +174,33 @@ public class uhcMenu implements Listener
         ItemStack itemStack = new ItemStack(Material.ANVIL);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName("§7Limite de Stuff: §6" + main.uhc_stuffLimit);
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
+    public ItemStack superHeroes()
+    {
+        ItemStack itemStack = new ItemStack(Material.POTION);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName("§7SuperHeroes: §6" + main.uhc_superHeroes);
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
+    public ItemStack noFall()
+    {
+        ItemStack itemStack = new ItemStack(Material.FEATHER);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName("§7NoFall: §6" + main.uhc_nofall);
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
+    public ItemStack skyHigh()
+    {
+        ItemStack itemStack = new ItemStack(Material.DIRT);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName("§7SkyHigh: §6" + main.uhc_skyhigh);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }

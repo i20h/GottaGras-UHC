@@ -1,6 +1,7 @@
 package fun.gottagras.uhc.commands;
 
 import fun.gottagras.uhc.Main;
+import fun.gottagras.uhc.listeners.superHeroes;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -63,6 +64,11 @@ public class reviveCommand implements CommandExecutor {
                     default:
                         new startCommand(main).giveUHCStuff(revivePlayer);
                         break;
+                }
+
+                if (main.uhc_superHeroes)
+                {
+                    new superHeroes(main).giveEffects(revivePlayer);
                 }
 
                 // ADD TO THE LIST

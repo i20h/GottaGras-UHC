@@ -2,6 +2,7 @@ package fun.gottagras.uhc.timers;
 
 import fun.gottagras.uhc.Main;
 import fun.gottagras.uhc.listeners.goneFishing;
+import fun.gottagras.uhc.listeners.superHeroes;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
@@ -32,7 +33,7 @@ public class uhcTime extends BukkitRunnable implements Runnable
             Bukkit.broadcastMessage("§7PvP activé");
             for (Player player: main.uhc_real_player_list)
             {
-                if (player != null) player.setHealth(player.getHealthScale());
+                if (player != null) player.setHealth(20);
             }
         }
 
@@ -64,9 +65,19 @@ public class uhcTime extends BukkitRunnable implements Runnable
         }
 
         // GONEFISHING
-        if (main.uhc_format.equals("gonefishing"))
+        if (main.uhc_format.equals("gonefishing") || main.uhc_skyhigh)
         {
             new goneFishing(main).skyHigh();
+        }
+
+        // SUPERHEROES
+        if (main.uhc_superHeroes && main.uhc_invincible == main.uhc_time)
+        {
+
+            for (Player player: main.uhc_real_player_list)
+            {
+                new superHeroes(main).giveEffects(player);
+            }
         }
 
         // CHECK WIN

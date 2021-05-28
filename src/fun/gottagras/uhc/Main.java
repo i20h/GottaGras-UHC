@@ -26,7 +26,12 @@ public class Main extends JavaPlugin
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         INSTANCE = this;
 
+        // PATCH FORCE
+        getServer().getPluginManager().registerEvents(new strengthPatch(this), this);
+
         // LISTERNERS
+        getServer().getPluginManager().registerEvents(new nofall(this), this);
+        getServer().getPluginManager().registerEvents(new superHeroes(this), this);
         getServer().getPluginManager().registerEvents(new limitStuffMenu(this), this);
         getServer().getPluginManager().registerEvents(new limitStuffListener(this), this);
         getServer().getPluginManager().registerEvents(new goneFishing(this), this);
@@ -74,6 +79,9 @@ public class Main extends JavaPlugin
     public boolean uhc_alltreedrop = true;
     public boolean uhc_hasteyboy = true;
     public boolean uhc_stuffLimit = true;
+    public boolean uhc_superHeroes = false;
+    public boolean uhc_nofall = false;
+    public boolean uhc_skyhigh = false;
 
     // UHC TIME
     public int uhc_invincible = 30;

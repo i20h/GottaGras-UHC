@@ -11,6 +11,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.ItemMergeEvent;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -99,6 +100,58 @@ public class limitStuffListener implements Listener {
         return itemStack.getType() == Material.GOLDEN_APPLE && itemStack.getData().toString().equals("GOLDEN_APPLE(1)") && !main.uhc_stuffLimit_notchApple;
     }
 
+    public int diamondArmorLimit(Player player)
+    {
+        ItemStack helmetSlot = player.getInventory().getHelmet();
+        ItemStack chestplateSlot = player.getInventory().getChestplate();
+        ItemStack leggingsSlot = player.getInventory().getLeggings();
+        ItemStack bootsSlot = player.getInventory().getBoots();
+        int diamondArmorNumber = 0;
+        if (helmetSlot != null)
+        {
+            if (helmetSlot.getType() == Material.DIAMOND_HELMET) diamondArmorNumber ++;
+        }
+        if (chestplateSlot != null)
+        {
+            if (chestplateSlot.getType() == Material.DIAMOND_CHESTPLATE) diamondArmorNumber ++;
+        }
+        if (leggingsSlot != null)
+        {
+            if (leggingsSlot.getType() == Material.DIAMOND_LEGGINGS) diamondArmorNumber ++;
+        }
+        if (bootsSlot != null)
+        {
+            if (bootsSlot.getType() == Material.DIAMOND_BOOTS) diamondArmorNumber ++;
+        }
+        return diamondArmorNumber;
+    }
+
+    public int ironArmorLimit(Player player)
+    {
+        ItemStack helmetSlot = player.getInventory().getHelmet();
+        ItemStack chestplateSlot = player.getInventory().getChestplate();
+        ItemStack leggingsSlot = player.getInventory().getLeggings();
+        ItemStack bootsSlot = player.getInventory().getBoots();
+        int ironArmorNumber = 0;
+        if (helmetSlot != null)
+        {
+            if (helmetSlot.getType() == Material.IRON_HELMET) ironArmorNumber ++;
+        }
+        if (chestplateSlot != null)
+        {
+            if (chestplateSlot.getType() == Material.IRON_CHESTPLATE) ironArmorNumber ++;
+        }
+        if (leggingsSlot != null)
+        {
+            if (leggingsSlot.getType() == Material.IRON_LEGGINGS) ironArmorNumber ++;
+        }
+        if (bootsSlot != null)
+        {
+            if (bootsSlot.getType() == Material.IRON_BOOTS) ironArmorNumber ++;
+        }
+        return ironArmorNumber;
+    }
+
     @EventHandler
     public void onPickup(PlayerPickupItemEvent event)
     {
@@ -117,8 +170,22 @@ public class limitStuffListener implements Listener {
     public void onClick(PlayerInteractEvent event)
     {
         if (!main.uhc_stuffLimit) return;
-        limitEnchant(event.getItem());
-        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) event.setCancelled(notchApple(event.getItem()));
+        ItemStack itemStack = event.getItem();
+        if (itemStack == null) return;
+        limitEnchant(itemStack);
+        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+        {
+            event.setCancelled(notchApple(itemStack));
+            if (itemStack.getType() == Material.DIAMOND_HELMET || itemStack.getType() == Material.DIAMOND_CHESTPLATE || itemStack.getType() == Material.DIAMOND_LEGGINGS || itemStack.getType() == Material.DIAMOND_BOOTS)
+            {
+                event.setCancelled(diamondArmorLimit(event.getPlayer()) >= main.uhc_stuffLimit_diamondArmor);
+            }
+            if (itemStack.getType() == Material.IRON_HELMET || itemStack.getType() == Material.IRON_CHESTPLATE || itemStack.getType() == Material.IRON_LEGGINGS || itemStack.getType() == Material.IRON_BOOTS)
+            {
+                event.setCancelled(ironArmorLimit(event.getPlayer()) >= main.uhc_stuffLimit_ironArmor);
+            }
+        }
+        event.getPlayer().updateInventory();
     }
 
     @EventHandler
@@ -126,9 +193,41 @@ public class limitStuffListener implements Listener {
     {
         if (!main.uhc_stuffLimit) return;
         limitEnchant(event.getCurrentItem());
-        if (event.getAction() == InventoryAction.PLACE_ALL || event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY)
+        ItemStack itemStack = event.getCurrentItem();
+        if (itemStack == null) return;
+        if (itemStack.getType() == Material.DIAMOND_HELMET || itemStack.getType() == Material.DIAMOND_CHESTPLATE || itemStack.getType() == Material.DIAMOND_LEGGINGS || itemStack.getType() == Material.DIAMOND_BOOTS)
         {
-            event.getCurrentItem();
+            if (event.getSlotType() == InventoryType.SlotType.ARMOR)
+            {
+                if (event.getAction() == InventoryAction.HOTBAR_SWAP || event.getAction() == InventoryAction.PLACE_ALL)
+                {
+                    event.setCancelled(diamondArmorLimit((Player) event.getWhoClicked()) >= main.uhc_stuffLimit_diamondArmor);
+                }
+            }
+            if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY)
+            {
+                if (event.getSlotType() == InventoryType.SlotType.CONTAINER || event.getSlotType() == InventoryType.SlotType.QUICKBAR)
+                {
+                    event.setCancelled(diamondArmorLimit((Player) event.getWhoClicked()) >= main.uhc_stuffLimit_diamondArmor);
+                }
+            }
+        }
+        if (itemStack.getType() == Material.IRON_HELMET || itemStack.getType() == Material.IRON_CHESTPLATE || itemStack.getType() == Material.IRON_LEGGINGS || itemStack.getType() == Material.IRON_BOOTS)
+        {
+            if (event.getSlotType() == InventoryType.SlotType.ARMOR)
+            {
+                if (event.getAction() == InventoryAction.HOTBAR_SWAP || event.getAction() == InventoryAction.PLACE_ALL)
+                {
+                    event.setCancelled(diamondArmorLimit((Player) event.getWhoClicked()) >= main.uhc_stuffLimit_ironArmor);
+                }
+            }
+            if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY)
+            {
+                if (event.getSlotType() == InventoryType.SlotType.CONTAINER || event.getSlotType() == InventoryType.SlotType.QUICKBAR)
+                {
+                    event.setCancelled(diamondArmorLimit((Player) event.getWhoClicked()) >= main.uhc_stuffLimit_ironArmor);
+                }
+            }
         }
     }
 }

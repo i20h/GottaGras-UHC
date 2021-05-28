@@ -113,9 +113,9 @@ public class startCommand implements CommandExecutor {
         // OP ROD
         ItemStack rod = new ItemStack(Material.FISHING_ROD);
         ItemMeta itemMeta = rod.getItemMeta();
-        itemMeta.spigot().setUnbreakable(true);
+        //itemMeta.spigot().setUnbreakable(true);
         itemMeta.addEnchant(Enchantment.LURE, 3, true);
-        itemMeta.addEnchant(Enchantment.LUCK, 999, true);
+        itemMeta.addEnchant(Enchantment.LUCK, 255, true);
         rod.setItemMeta(itemMeta);
 
         // ARMOR
